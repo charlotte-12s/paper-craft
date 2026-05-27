@@ -1,0 +1,14 @@
+{
+  "name": "paper-craft",
+  "version": "1.0.0",
+  "description": "PaperCraft — From idea to accepted paper at top CS conferences. Full-pipeline CS research AI partner with 17 rules + 12 skills.",
+  "bin": {
+    "paper-craft": "./install.sh"
+  },
+  "scripts": {
+    "install-skills": "bash install.sh",
+    "validate": "node validate.js"
+  },
+  "keywords": ["claude-code", "skills", "research", "paper-writing", "cs-research", "academic-writing", "conference", "ai-coding"],
+  "license": "BSD-3-Clause"
+}
