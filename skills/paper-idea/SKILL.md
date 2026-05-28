@@ -74,6 +74,10 @@ Evaluate each candidate idea against three risk dimensions:
 | Novelty | Clear differentiation from existing work | Incremental improvement, may face "not novel enough" | Close to existing work, reviewer may reject |
 | Feasibility | Compute resources sufficient, data available | May need creative workarounds for compute/data | Requires resources beyond what's available |
 
+**Compute-Aware Idea Selection:** When the researcher has abundant compute (e.g., 8×A800), prefer ideas that REQUIRE large compute — they have fewer competitors because most labs can't reproduce them. When compute is limited, prefer ideas that are algorithmically clever rather than brute-force. Never waste abundant compute on ideas that a single 3090 can handle.
+
+**Conference-Aware Narrative Reframing:** Before finalizing an idea, check the target conference's profile (use paper-search skill's conference references). If the idea is domain-specific (e.g., embodied AI, robotics), reframe the narrative to show broader AI relevance. Example: "physical causal arbitration for embodied agents" → "causal consistency maintenance for multi-agent generative AI" (covers autonomous driving, gaming, digital twins).
+
 Present risk matrix with mitigation strategies.
 
 ### Step 5: Output Idea Report
