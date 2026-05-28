@@ -6,7 +6,7 @@
 
 *Not just another paper-writing tool — a full-pipeline AI research partner.*
 
-[![npm version](https://img.shields.io/npm/v/paper-craft.svg)](https://www.npmjs.com/package/paper-craft)
+[![npm version](https://img.shields.io/npm/v/paper-craft-ai.svg)](https://www.npmjs.com/package/paper-craft-ai)
 [![GitHub Stars](https://img.shields.io/github/stars/charlotte-12s/paper-craft?style=social)](https://github.com/charlotte-12s/paper-craft/stargazers)
 [![CI](https://github.com/charlotte-12s/paper-craft/actions/workflows/validate.yml/badge.svg)](https://github.com/charlotte-12s/paper-craft/actions/workflows/validate.yml)
 [![License: BSD-3-Clause](https://img.shields.io/badge/License-BSD--3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
@@ -378,6 +378,11 @@ npx paper-craft-ai           # 推荐，跨平台（Windows/macOS/Linux）
 | `/paper-audit` | 50+ 项检查清单，6 个维度，提交前全链路审计 |
 
 ---
+
+## More Tools for AI Developers
+
+- 🔄 [ContextSync](https://github.com/charlotte-12s/context-sync) — 8 rules + 3 skills that make AI respect your project conventions
+- 🤖 [ML Playbook](https://github.com/charlotte-12s/ml-playbook) — 12 rules + 4 skills that make Claude your senior ML engineer
 
 ## License
 
