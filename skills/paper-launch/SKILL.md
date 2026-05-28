@@ -86,6 +86,16 @@ Generate directory skeleton containing:
 - Experiment checklist
 - Deadline tracker
 
+## Output Format
+
+Every result presented to the human must follow the Explain-Before-Proceed pattern:
+
+📊 Result: What was done, what was found
+💡 Explanation: Why this result, what it means for the research
+🎯 Action: What the human needs to decide or do next
+
+Never present data without explanation and next steps.
+
 ## Key Design Decisions
 
 - This is the "wheelchair mode" — human only provides ideas + compute, AI does the rest

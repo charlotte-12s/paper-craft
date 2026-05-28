@@ -77,13 +77,15 @@ Each profile includes review weights, writing style, recent trends, reviewer con
 
 ## Quick Start
 
-### Option 1: npx (recommended)
+### Option 1: npx (recommended, cross-platform)
 
 ```bash
 npx paper-craft
 ```
 
-### Option 2: curl
+Works on Windows, macOS, and Linux.
+
+### Option 2: curl (macOS/Linux)
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/charlotte-12s/paper-craft/main/install.sh | bash
@@ -94,6 +96,9 @@ curl -fsSL https://raw.githubusercontent.com/charlotte-12s/paper-craft/main/inst
 ```bash
 git clone https://github.com/charlotte-12s/paper-craft.git
 cd paper-craft
+# Cross-platform (Node.js)
+node cli.js
+# Or use bash (macOS/Linux/WSL)
 bash install.sh
 ```
 
@@ -103,35 +108,35 @@ Install only the skills you need:
 
 ```bash
 # All 12 skills (default)
-bash install.sh --bundle full
+npx paper-craft --bundle full
 
 # Literature search only
-bash install.sh --bundle search-only
+npx paper-craft --bundle search-only
 
 # Writing pipeline only (story + write + review)
-bash install.sh --bundle write-only
+npx paper-craft --bundle write-only
 
 # One-command launcher only
-bash install.sh --bundle launch-only
+npx paper-craft --bundle launch-only
 ```
 
 ## Cross-Tool Compatibility
 
 PaperCraft works with all major AI coding tools:
 
-| Tool | Installation |
-|------|-------------|
-| Claude Code | Auto-detected (`.claude/`) |
-| Cursor | Auto-detected (`.cursor/`) |
-| Codex CLI | Auto-detected (`AGENTS.md`) |
-| Gemini CLI | Auto-detected (`GEMINI.md`) |
-| GitHub Copilot | Auto-detected (`.github/`) |
-| Windsurf | Auto-detected (`.windsurfrules`) |
+| Tool | `--tool` flag | Auto-detection |
+|------|---------------|----------------|
+| Claude Code | `claude-code` | `.claude/` directory |
+| Cursor | `cursor` | `.cursor/` directory |
+| Codex CLI | `codex` | `AGENTS.md` file |
+| Gemini CLI | `gemini` | `GEMINI.md` file |
+| GitHub Copilot | `copilot` | `.github/` directory |
+| Windsurf | `windsurf` | `.windsurfrules` file |
 
 Specify manually with `--tool`:
 
 ```bash
-bash install.sh --tool claude-code --tool cursor
+npx paper-craft --tool claude-code --tool cursor
 ```
 
 ## CS-Specific Conventions

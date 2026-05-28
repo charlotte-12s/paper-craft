@@ -2,13 +2,30 @@
   "name": "paper-craft",
   "version": "1.0.0",
   "description": "PaperCraft — From idea to accepted paper at top CS conferences. Full-pipeline CS research AI partner with 17 rules + 12 skills.",
-  "bin": {
-    "paper-craft": "./install.sh"
+  "author": "charlotte-12s",
+  "license": "BSD-3-Clause",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/charlotte-12s/paper-craft.git"
   },
+  "homepage": "https://github.com/charlotte-12s/paper-craft#readme",
+  "bugs": {
+    "url": "https://github.com/charlotte-12s/paper-craft/issues"
+  },
+  "bin": {
+    "paper-craft": "./cli.js"
+  },
+  "files": [
+    "cli.js",
+    "install.sh",
+    "CLAUDE.md",
+    "skills/",
+    "references/",
+    "validate.js"
+  ],
   "scripts": {
-    "install-skills": "bash install.sh",
+    "install-skills": "node cli.js",
     "validate": "node validate.js"
   },
-  "keywords": ["claude-code", "skills", "research", "paper-writing", "cs-research", "academic-writing", "conference", "ai-coding"],
-  "license": "BSD-3-Clause"
+  "keywords": ["claude-code", "skills", "research", "paper-writing", "cs-research", "academic-writing", "conference", "ai-coding"]
 }

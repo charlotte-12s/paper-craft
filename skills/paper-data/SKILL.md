@@ -30,7 +30,7 @@ Present needs analysis for confirmation.
 
 ### Step 2: Search Matching Datasets
 
-Search HuggingFace Datasets + Kaggle + Papers with Code Datasets + domain-specific repositories (see paper-search references/search-sources.md 数据集层).
+Search HuggingFace Datasets + Kaggle + Papers with Code Datasets + domain-specific repositories (see `references/search-sources.md` in the paper-search skill, 数据集层).
 
 For each candidate dataset, evaluate:
 - Community recognition (how many papers use it?)
@@ -41,7 +41,7 @@ Rank by community recognition + compatibility. Present options with usage explan
 
 ### Step 3: Data Quality Check + Leakage Scan
 
-Check for:
+Check for (see `references/contamination-check.md` for detailed decontamination procedures):
 
 | Check | What to Look For | Tool |
 |-------|-----------------|------|
@@ -54,7 +54,7 @@ Present quality report with risk assessment.
 
 ### Step 4: Design Data Processing Pipeline
 
-Design step-by-step pipeline:
+Design step-by-step pipeline (see `references/data-pipeline.md` for pipeline templates and tool recommendations):
 
 1. Download (source URLs, expected checksums)
 2. Format conversion (raw → standardized format)

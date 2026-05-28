@@ -32,6 +32,14 @@ Object.entries(skills).forEach(([skill, refs]) => {
       console.error('INVALID FRONTMATTER: ' + skillPath);
       ok = false;
     }
+    if (!content.includes('## Output Format')) {
+      console.error('MISSING "## Output Format" section in ' + skillPath);
+      ok = false;
+    }
+    if (!content.includes('## Done When')) {
+      console.error('MISSING "## Done When" section in ' + skillPath);
+      ok = false;
+    }
   }
 
   refs.forEach(ref => {
@@ -51,7 +59,7 @@ conferences.forEach(conf => {
     ok = false;
   } else {
     const content = fs.readFileSync(confPath, 'utf8');
-    const required = ['Basic Info', 'Review Weights', 'Writing Style', 'Anti-patterns', 'Success Patterns'];
+    const required = ['Basic Info', 'Review Weights', 'Writing Style', 'Recent Trends', 'Reviewer Common Concerns', 'Anti-patterns', 'Success Patterns'];
     required.forEach(section => {
       if (!content.includes(section)) {
         console.error('MISSING SECTION "' + section + '" in ' + confPath);
@@ -62,12 +70,53 @@ conferences.forEach(conf => {
 });
 
 // Check root files
-['CLAUDE.md', 'install.sh'].forEach(f => {
+['CLAUDE.md', 'install.sh', 'cli.js', 'README.md', 'package.json'].forEach(f => {
   if (!fs.existsSync(f)) {
     console.error('MISSING: ' + f);
     ok = false;
   }
 });
+
+// Cross-validate cli.js skill lists against this file
+const cliContent = fs.readFileSync('cli.js', 'utf8');
+const cliSkillsMatch = cliContent.match(/const SKILLS = \[([\s\S]*?)\]/);
+const cliConfMatch = cliContent.match(/const CONFERENCE_SKILLS = \[([\s\S]*?)\]/);
+const cliBundlesMatch = cliContent.match(/const BUNDLES = \{([\s\S]*?)\};/);
+
+if (!cliSkillsMatch) {
+  console.error('CROSS-CHECK: Cannot find SKILLS array in cli.js');
+  ok = false;
+} else {
+  const cliSkills = cliSkillsMatch[1].match(/'([^']+)'/g).map(s => s.replace(/'/g, ''));
+  const validateSkills = Object.keys(skills);
+  const missingInCli = validateSkills.filter(s => !cliSkills.includes(s));
+  const extraInCli = cliSkills.filter(s => !validateSkills.includes(s));
+  if (missingInCli.length > 0) {
+    console.error('CROSS-CHECK: Skills in validate.js but missing from cli.js: ' + missingInCli.join(', '));
+    ok = false;
+  }
+  if (extraInCli.length > 0) {
+    console.error('CROSS-CHECK: Skills in cli.js but missing from validate.js: ' + extraInCli.join(', '));
+    ok = false;
+  }
+}
+
+if (!cliConfMatch) {
+  console.error('CROSS-CHECK: Cannot find CONFERENCE_SKILLS array in cli.js');
+  ok = false;
+} else {
+  const cliConfSkills = cliConfMatch[1].match(/'([^']+)'/g).map(s => s.replace(/'/g, ''));
+  const expectedConfSkills = ['paper-search', 'paper-launch', 'paper-review'];
+  if (JSON.stringify(cliConfSkills.sort()) !== JSON.stringify(expectedConfSkills.sort())) {
+    console.error('CROSS-CHECK: CONFERENCE_SKILLS in cli.js does not match expected: ' + expectedConfSkills.join(', '));
+    ok = false;
+  }
+}
+
+if (!cliBundlesMatch) {
+  console.error('CROSS-CHECK: Cannot find BUNDLES object in cli.js');
+  ok = false;
+}
 
 if (ok) {
   console.log('All files valid');
