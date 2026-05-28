@@ -6,6 +6,8 @@
 
 *Not just another paper-writing tool — a full-pipeline AI research partner.*
 
+> 🌟 If PaperCraft helps your research, please consider giving it a star — it helps others discover it!
+
 [![npm version](https://img.shields.io/npm/v/paper-craft-ai.svg)](https://www.npmjs.com/package/paper-craft-ai)
 [![GitHub Stars](https://img.shields.io/github/stars/charlotte-12s/paper-craft?style=social)](https://github.com/charlotte-12s/paper-craft/stargazers)
 [![CI](https://github.com/charlotte-12s/paper-craft/actions/workflows/validate.yml/badge.svg?branch=master)](https://github.com/charlotte-12s/paper-craft/actions/workflows/validate.yml)
@@ -376,6 +378,12 @@ npx paper-craft-ai           # 推荐，跨平台（Windows/macOS/Linux）
 | `/paper-review` | 模拟 2-3 个审稿人，含"杠精"审稿人，会议评分标准 |
 | `/paper-rebuttal` | 审稿意见解析，证据驱动的回复模板 |
 | `/paper-audit` | 50+ 项检查清单，6 个维度，提交前全链路审计 |
+
+---
+
+## ⭐ Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=charlotte-12s/paper-craft&type=Date)](https://star-history.com/#charlotte-12s/paper-craft&type=Date)
 
 ---
 
