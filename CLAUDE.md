@@ -89,100 +89,43 @@ These rules override default AI behaviors when doing CS research. The goal: AI s
 **Don't**: Use fixed templates or copy other papers' figure layouts.
 **If you catch yourself** applying a generic figure template → Stop and derive the figure from the paper's content.
 
-## Skill Activation
+## Skill Activation — Intent-Based Routing
 
-Match the user's INTENT, not just keywords. When the user's request is related to any of these activities, activate the corresponding skill — even if they use casual, indirect, or non-English phrasing.
+**Core principle:** Route by WHAT THE USER IS TRYING TO ACCOMPLISH, not by what words they used. A user saying "我想了解别人做到哪了" and a user saying "search papers" have the same intent → `paper-search`.
 
-### `paper-launch` — Full Pipeline / Starting from Scratch
-**Activate when:** User wants to start a research project from the beginning, has rough ideas and wants a complete plan, says things like:
-- "我想做一个关于X的研究" / "I want to do research on X"
-- "帮我从零开始" / "从哪里开始" / "where do I start"
-- "我有个想法但不知道怎么入手" / "I have an idea but don't know where to begin"
-- "帮我规划一下整个项目" / "帮我立项" / "start a project"
-- Any open-ended research request where the user hasn't specified a particular stage
+**How to decide:** For any user message related to research/ML/AI, ask yourself: "Which stage of the research lifecycle is this?" Then activate the matching skill. If uncertain between two skills, activate the one that covers the earlier stage (e.g., uncertain between paper-idea and paper-plan → paper-idea, because you should validate novelty before designing experiments).
 
-### `paper-search` — Literature / Papers / Related Work
-**Activate when:** User mentions anything about finding, reading, surveying, or understanding existing work:
-- "搜论文" / "查文献" / "找相关研究" / "这个领域有什么工作" / "search papers"
-- "帮我看看有没有做过X的" / "has anyone done X before"
-- "综述" / "survey" / "related work" / "state of the art" / "SOTA"
-- "引用" / "cite" / "参考文献" / "reference" / "bibliography"
-- "哪个会议发了X方面的论文" / "what papers on X were published at"
+**Fallback rule:** If the user's request is research-related but you can't determine the specific stage, activate `paper-launch` — it covers the full pipeline and will route to the right skill internally.
 
-### `paper-idea` — Novelty / Innovation / Research Direction
-**Activate when:** User is evaluating or developing research ideas:
-- "这个方向新不新" / "这个想法有没有人做过" / "is this novel"
-- "帮我看看创新点" / "find innovation gaps" / "研究空白"
-- "能不能发顶会" / "够不够新" / "is this publishable"
-- "帮我头脑风暴研究想法" / "brainstorm research ideas"
-- "和XXX比有什么不同" / "what's different from X"
+### Skill Intent Map
 
-### `paper-plan` — Experiments / Compute / Ablation Design
-**Activate when:** User is designing experiments or planning compute resources:
-- "帮我设计实验" / "design experiments" / "实验方案"
-- "我只有X卡GPU" / "I only have X GPU" / "算力不够怎么办"
-- "消融实验怎么做" / "ablation study" / "怎么验证每个模块"
-- "帮我找开源代码/数据集" / "find open-source code"
-- "跑多少组实验" / "how many experiments to run"
+| Skill | The user is trying to... | NOT just when they say... |
+|-------|--------------------------|---------------------------|
+| `paper-launch` | Start from scratch, go from vague ideas to a concrete plan, or doesn't know where to begin | "launch" / "start" |
+| `paper-search` | Understand what already exists — find papers, survey a field, check who did what, map the landscape | "search" / "搜论文" |
+| `paper-idea` | Validate or develop a research direction — check novelty, find gaps, assess feasibility | "idea" / "创新" |
+| `paper-plan` | Design experiments within constraints — figure out what to run, how many GPUs needed, what to ablate | "plan" / "实验方案" |
+| `paper-data` | Choose or prepare data — pick datasets, check contamination, build processing pipelines | "dataset" / "数据" |
+| `paper-env` | Get the environment working — install things, fix version conflicts, set up Docker/conda | "environment" / "环境" |
+| `paper-train` | Make training work — configure parameters, debug NaN/OOM/loss issues, fine-tune a model | "train" / "训练" |
+| `paper-story` | Figure out how to tell the research story — choose narrative structure, build logic chain | "story" / "叙事" |
+| `paper-write` | Produce or revise paper text — write sections, polish prose, format for a conference | "write" / "写" |
+| `paper-review` | Get feedback before submission — find weaknesses, simulate reviewers, assess acceptance chances | "review" / "审稿" |
+| `paper-rebuttal` | Respond to reviewer feedback — write rebuttals, address criticisms, plan revision | "rebuttal" / "回复" |
+| `paper-audit` | Final check before submitting — completeness, formatting, anonymity, citations | "audit" / "检查" |
 
-### `paper-data` — Datasets / Data Processing / Contamination
-**Activate when:** User mentions datasets, data processing, or data quality:
-- "用什么数据集" / "which dataset" / "数据集选择"
-- "数据有没有污染" / "data contamination" / "test set leak"
-- "帮我处理数据" / "process data" / "data pipeline"
-- "数据预处理" / "preprocessing" / "data cleaning"
-- "数据划分" / "train/val/test split"
+### Intent Examples
 
-### `paper-env` — Environment Setup / Dependencies / Compatibility
-**Activate when:** User is setting up or troubleshooting development environments:
-- "环境配不好" / "environment setup" / "装不上"
-- "CUDA版本" / "PyTorch版本" / "version conflict"
-- "帮我配环境" / "set up environment" / "依赖冲突"
-- "Docker" / "conda" / "pip install 报错"
+These are NOT keyword triggers — they illustrate the range of expressions that map to each intent:
 
-### `paper-train` — Training / Fine-tuning / Debugging Training
-**Activate when:** User is training, fine-tuning, or debugging model training:
-- "帮我配训练参数" / "training config" / "hyperparameters"
-- "batch size 设多少" / "learning rate" / "LoRA rank"
-- "NaN loss" / "OOM" / "训练崩了" / "loss 不降"
-- "loss 震荡" / "不收敛" / "overfitting" / "欠拟合"
-- "微调" / "fine-tune" / "训练一个模型" / "train a model"
-- "DeepSpeed" / "分布式训练" / "multi-GPU"
+**→ paper-search:** "这个领域做到什么程度了" / "has anyone tried X" / "帮我看看相关的研究进展" / "who published on this topic" / "和X相关的工作有哪些" / "I need to understand the landscape"
 
-### `paper-story` — Narrative / Story / Paper Structure
-**Activate when:** User is thinking about how to tell the paper's story or structure:
-- "论文怎么讲这个故事" / "how to frame the paper"
-- "用什么叙事结构" / "narrative structure" / "story pattern"
-- "论文逻辑链" / "argument chain" / "怎么组织论文"
-- "和XXX那篇论文一样的讲法" / "like the Attention paper"
+**→ paper-idea:** "这个方向还有空间吗" / "is there room for improvement" / "我的想法和别人有什么不同" / "what's the gap" / "这种思路能不能做" / "worth pursuing?"
 
-### `paper-write` — Writing / Sections / LaTeX
-**Activate when:** User is writing or revising paper content:
-- "帮我写XX部分" / "write the method section" / "写abstract"
-- "帮我润色" / "polish" / "改写" / "rewrite"
-- "LaTeX" / "写论文" / "draft" / "manuscript"
-- "introduction怎么写" / "related work怎么组织"
-- "会议模板" / "conference template" / "双栏格式"
+**→ paper-train:** "跑了一晚上 loss 还是 nan" / "model won't converge" / "显存不够怎么办" / "OOM" / "loss 一直在震荡" / "fine-tune 但不知道参数" / "how many epochs" / "训练挂了"
 
-### `paper-review` — Review / Feedback / Weakness Check
-**Activate when:** User wants feedback, review simulation, or weakness identification:
-- "帮我看看论文有什么问题" / "review my paper" / "找找弱点"
-- "模拟审稿" / "simulate review" / "审稿人会怎么说"
-- "能不能中" / "will it be accepted" / "有什么风险"
-- "reviewer 2" / "weakness" / "rebuttal 提前准备"
-- "帮我检查一下" / "check this before submission"
+**→ paper-write:** "帮我写 introduction" / "polish this paragraph" / "related work 怎么组织" / "method 部分怎么写" / "turn these results into a section" / "论文措辞" / "rephrase this"
 
-### `paper-rebuttal` — Rebuttal / Response to Reviews
-**Activate when:** User has received reviews and needs to respond:
-- "审稿意见来了" / "got reviews" / "reviewer 说了X"
-- "帮我写回复" / "write rebuttal" / "response to reviewers"
-- "怎么反驳审稿人" / "how to respond" / "rebuttal strategy"
-- "审稿人不认可X" / "reviewer rejected X"
+**→ paper-review:** "这论文能不能投 NeurIPS" / "what would reviewers say" / "帮我找找弱点" / "chances of acceptance" / "有什么会被攻击的地方" / "模拟审稿人"
 
-### `paper-audit` — Pre-submission Check / Quality Audit
-**Activate when:** User is about to submit or wants a comprehensive quality check:
-- "要提交了帮我检查" / "pre-submission check" / "提交前检查"
-- "有没有遗漏" / "anything missing" / "自查"
-- "审计" / "audit" / "50项检查清单" / "checklist"
-- "匿名化" / "anonymization" / "格式对不对"
-- "引用够不够" / "citations complete" / "有没有声明冲突"
+**→ paper-audit:** "要提交了帮我过一遍" / "before I submit" / "有没有遗漏什么" / "匿名化做了吗" / "格式对不对" / "最终检查"
