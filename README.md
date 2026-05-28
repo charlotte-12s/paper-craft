@@ -17,7 +17,7 @@
 npx paper-craft-ai
 ```
 
-[English](#-quick-start) · [中文说明](#-中文说明) · [The 12 Skills](#-the-12-skills) · [The 17 Rules](#-the-17-research-rules) · [Cross-Tool](#-cross-tool-compatibility)
+[English](#-quick-start) · [中文说明](#-中文说明) · [The 12 Skills](#-the-12-skills) · [The 17 Rules](#-the-17-research-rules) · [Changelog](CHANGELOG.md) · [Cross-Tool](#-cross-tool-compatibility)
 
 </div>
 
