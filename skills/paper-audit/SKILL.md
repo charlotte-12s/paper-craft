@@ -48,6 +48,16 @@ Generate:
 - Specific fix guidance with file:line references where possible
 - Before/after examples for common fixes
 
+## Output Format
+
+Every result presented to the human must follow the Explain-Before-Proceed pattern:
+
+📊 Result: What was done, what was found
+💡 Explanation: Why this result, what it means for the research
+🎯 Action: What the human needs to decide or do next
+
+Never present data without explanation and next steps.
+
 ## Done When
 
 - [ ] Audit scope confirmed

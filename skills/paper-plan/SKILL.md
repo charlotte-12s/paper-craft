@@ -29,7 +29,7 @@ Before designing any experiment, collect:
 | Platform | Local/cloud/HPC? | Determines environment setup |
 | Budget | Any cost constraints? | Determines cloud vs local trade-offs |
 
-Present resource-constrained feasible options. For example: "With 1x A100-40GB, you can train up to 7B models with LoRA, but full fine-tuning requires at least 2x A100-80GB."
+Present resource-constrained feasible options. For example: "With 1x A100-40GB, you can train up to 7B models with LoRA, but full fine-tuning requires at least 2x A100-80GB." See `references/training-recipes.md` for GPU-specific training parameter recommendations.
 
 ### Step 2: Search Open-Source Code
 
@@ -44,7 +44,7 @@ For each framework found, evaluate:
 | Documentation | Does it have clear setup instructions? |
 | Community | >100 stars, active issues? |
 
-Rank by resource compatibility. Present options with per-framework resource requirements.
+Rank by resource compatibility. Present options with per-framework resource requirements. See `references/env-compat.md` for version compatibility matrix when selecting frameworks.
 
 ### Step 3: Search Open-Source Datasets
 
@@ -83,6 +83,16 @@ Generate:
 - Timeline with milestones and dependencies
 - Experiment runbook (exact commands to run)
 - Figure/ablation plan with justification
+
+## Output Format
+
+Every result presented to the human must follow the Explain-Before-Proceed pattern:
+
+📊 Result: What was done, what was found
+💡 Explanation: Why this result, what it means for the research
+🎯 Action: What the human needs to decide or do next
+
+Never present data without explanation and next steps.
 
 ## Done When
 

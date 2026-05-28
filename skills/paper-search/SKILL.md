@@ -38,14 +38,14 @@ Present query list for human confirmation.
 
 ### Step 3: Core Layer Search
 
-Search for directly overlapping work using multi-source strategy:
+Search for directly overlapping work using multi-source strategy (see `references/search-sources.md` for full source catalog):
 
 1. Google Scholar — broadest coverage, sort by relevance
 2. arXiv — latest preprints, sort by recency
 3. Semantic Scholar — semantic search + citation graph
 4. DBLP — precise author/conference search
 
-Present results with quality labels (⭐⭐⭐/⭐⭐/⭐/❌) and relevance labels (🔴/🟡/🟢/⚪).
+Present results with quality labels (see `references/quality-filter.md` for detailed criteria) and relevance labels (see `references/relevance-scoring.md` for scoring decision tree):
 
 Quality labels:
 - ⭐⭐⭐: >500 citations + open-source code
@@ -114,6 +114,16 @@ Generate report containing:
 - Recommended reading (Top 10 with 2-sentence summaries)
 - Conference-specific writing advice (if applicable)
 - Search completeness rating (high/medium/low)
+
+## Output Format
+
+Every result presented to the human must follow the Explain-Before-Proceed pattern:
+
+📊 Result: What was done, what was found
+💡 Explanation: Why this result, what it means for the research
+🎯 Action: What the human needs to decide or do next
+
+Never present data without explanation and next steps.
 
 ## Done When
 

@@ -48,6 +48,10 @@ Write each section using its reference guide:
 | Experiments | `references/experiments.md` | Tables + ablations + statistical significance |
 | Conclusion | `references/conclusion.md` | Contributions + limitations + future work |
 
+After all sections are drafted, apply revision and figure quality checks:
+- `references/revision.md` — Paragraph clarity check, claim-evidence alignment, reverse outlining
+- `references/figures-and-tables.md` — Content-driven figure/table design, LaTeX table templates, matplotlib/TikZ code templates, CS paper figure norms
+
 Check in with human at key sections (after Introduction, after Method, after Experiments).
 
 ### Step 4: Format Adaptation
@@ -72,6 +76,16 @@ Generate:
 - Claim-evidence alignment: every claim maps to evidence (Claim: ... | Evidence: ... | Status: supported/needs evidence)
 - Content-driven figures: figures derived from paper content, not templates (Rule 17)
 - CS-specific: LaTeX double-column, algorithm pseudocode, BibTeX, TikZ/matplotlib style
+
+## Output Format
+
+Every result presented to the human must follow the Explain-Before-Proceed pattern:
+
+📊 Result: What was done, what was found
+💡 Explanation: Why this result, what it means for the research
+🎯 Action: What the human needs to decide or do next
+
+Never present data without explanation and next steps.
 
 ## Done When
 

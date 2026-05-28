@@ -78,6 +78,14 @@ if [[ ${#TOOLS[@]} -eq 0 ]]; then
   fi
 fi
 
+# Check if any selected skill needs conference profiles
+needs_conferences() {
+  for skill in paper-search paper-launch paper-review; do
+    [[ " ${SELECTED_SKILLS[@]} " =~ " $skill " ]] && return 0
+  done
+  return 1
+}
+
 # Install for Claude Code
 install_claude_code() {
   info "Installing for Claude Code..."
@@ -88,10 +96,16 @@ install_claude_code() {
     info "  Installed skill: $skill"
   done
 
-  # Copy conference profiles if paper-search or paper-launch is included
-  if [[ " ${SELECTED_SKILLS[@]} " =~ " paper-search " ]] || [[ " ${SELECTED_SKILLS[@]} " =~ " paper-launch " ]]; then
-    mkdir -p .claude/skills/paper-search/references/conferences
-    cp -r "$SCRIPT_DIR/references/conferences/"* ".claude/skills/paper-search/references/conferences/" 2>/dev/null || true
+  # Copy conference profiles to each skill that references them
+  NEEDS_CONFERENCES=false
+  for skill in paper-search paper-launch paper-review; do
+    if [[ " ${SELECTED_SKILLS[@]} " =~ " $skill " ]]; then
+      NEEDS_CONFERENCES=true
+      mkdir -p ".claude/skills/$skill/references/conferences"
+      cp -r "$SCRIPT_DIR/references/conferences/"* ".claude/skills/$skill/references/conferences/" 2>/dev/null || true
+    fi
+  done
+  if [[ "$NEEDS_CONFERENCES" == true ]]; then
     info "  Installed conference profiles"
   fi
 
@@ -113,9 +127,35 @@ install_cursor() {
   mkdir -p .cursor/rules
 
   for skill in "${SELECTED_SKILLS[@]}"; do
-    cp "$SCRIPT_DIR/skills/$skill/SKILL.md" ".cursor/rules/$skill.mdc"
+    {
+      cat "$SCRIPT_DIR/skills/$skill/SKILL.md"
+      # Append reference file contents if they exist
+      if ls "$SCRIPT_DIR/skills/$skill/references/"*.md &>/dev/null; then
+        echo ""
+        echo "## Reference Files"
+        for ref in "$SCRIPT_DIR/skills/$skill/references/"*.md; do
+          echo ""
+          echo "### $(basename "$ref" .md)"
+          echo ""
+          cat "$ref"
+        done
+      fi
+    } > ".cursor/rules/$skill.mdc"
     info "  Installed rule: $skill.mdc"
   done
+
+  # Copy conference profiles as a separate rule
+  if needs_conferences; then
+    {
+      echo "# Conference Profiles (16 CCF-A)"
+      echo ""
+      for conf_file in "$SCRIPT_DIR/references/conferences/"*.md; do
+        cat "$conf_file"
+        echo ""
+      done
+    } > .cursor/rules/conference-profiles.mdc
+    info "  Installed rule: conference-profiles.mdc"
+  fi
 
   cat "$SCRIPT_DIR/CLAUDE.md" > .cursor/rules/paper-craft-rules.mdc
   info "  Installed rules: paper-craft-rules.mdc"
@@ -132,7 +172,25 @@ install_codex() {
     for skill in "${SELECTED_SKILLS[@]}"; do
       echo ""
       cat "$SCRIPT_DIR/skills/$skill/SKILL.md"
+      # Append reference file contents
+      if ls "$SCRIPT_DIR/skills/$skill/references/"*.md &>/dev/null; then
+        for ref in "$SCRIPT_DIR/skills/$skill/references/"*.md; do
+          echo ""
+          echo "### Reference: $(basename "$ref" .md)"
+          echo ""
+          cat "$ref"
+        done
+      fi
     done
+    # Append conference profiles if needed
+    if needs_conferences; then
+      echo ""
+      echo "## Conference Profiles (16 CCF-A)"
+      for conf_file in "$SCRIPT_DIR/references/conferences/"*.md; do
+        echo ""
+        cat "$conf_file"
+      done
+    fi
   } >> AGENTS.md
 
   info "  Appended to AGENTS.md"
@@ -149,7 +207,23 @@ install_gemini() {
     for skill in "${SELECTED_SKILLS[@]}"; do
       echo ""
       cat "$SCRIPT_DIR/skills/$skill/SKILL.md"
+      if ls "$SCRIPT_DIR/skills/$skill/references/"*.md &>/dev/null; then
+        for ref in "$SCRIPT_DIR/skills/$skill/references/"*.md; do
+          echo ""
+          echo "### Reference: $(basename "$ref" .md)"
+          echo ""
+          cat "$ref"
+        done
+      fi
     done
+    if needs_conferences; then
+      echo ""
+      echo "## Conference Profiles (16 CCF-A)"
+      for conf_file in "$SCRIPT_DIR/references/conferences/"*.md; do
+        echo ""
+        cat "$conf_file"
+      done
+    fi
   } >> GEMINI.md
 
   info "  Appended to GEMINI.md"
@@ -167,7 +241,23 @@ install_copilot() {
     for skill in "${SELECTED_SKILLS[@]}"; do
       echo ""
       cat "$SCRIPT_DIR/skills/$skill/SKILL.md"
+      if ls "$SCRIPT_DIR/skills/$skill/references/"*.md &>/dev/null; then
+        for ref in "$SCRIPT_DIR/skills/$skill/references/"*.md; do
+          echo ""
+          echo "### Reference: $(basename "$ref" .md)"
+          echo ""
+          cat "$ref"
+        done
+      fi
     done
+    if needs_conferences; then
+      echo ""
+      echo "## Conference Profiles (16 CCF-A)"
+      for conf_file in "$SCRIPT_DIR/references/conferences/"*.md; do
+        echo ""
+        cat "$conf_file"
+      done
+    fi
   } >> .github/copilot-instructions.md
 
   info "  Appended to .github/copilot-instructions.md"
@@ -184,7 +274,23 @@ install_windsurf() {
     for skill in "${SELECTED_SKILLS[@]}"; do
       echo ""
       cat "$SCRIPT_DIR/skills/$skill/SKILL.md"
+      if ls "$SCRIPT_DIR/skills/$skill/references/"*.md &>/dev/null; then
+        for ref in "$SCRIPT_DIR/skills/$skill/references/"*.md; do
+          echo ""
+          echo "### Reference: $(basename "$ref" .md)"
+          echo ""
+          cat "$ref"
+        done
+      fi
     done
+    if needs_conferences; then
+      echo ""
+      echo "## Conference Profiles (16 CCF-A)"
+      for conf_file in "$SCRIPT_DIR/references/conferences/"*.md; do
+        echo ""
+        cat "$conf_file"
+      done
+    fi
   } >> .windsurfrules
 
   info "  Appended to .windsurfrules"
