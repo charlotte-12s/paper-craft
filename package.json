@@ -1,5 +1,5 @@
 {
-  "name": "paper-craft",
+  "name": "paper-craft-ai",
   "version": "1.0.0",
   "description": "PaperCraft — From idea to accepted paper at top CS conferences. Full-pipeline CS research AI partner with 17 rules + 12 skills.",
   "author": "charlotte-12s",
@@ -13,7 +13,7 @@
     "url": "https://github.com/charlotte-12s/paper-craft/issues"
   },
   "bin": {
-    "paper-craft": "./cli.js"
+    "paper-craft-ai": "./cli.js"
   },
   "files": [
     "cli.js",

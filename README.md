@@ -12,7 +12,7 @@
 [![License: BSD-3-Clause](https://img.shields.io/badge/License-BSD--3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 
 ```bash
-npx paper-craft
+npx paper-craft-ai
 ```
 
 [English](#-quick-start) · [中文说明](#-中文说明) · [The 12 Skills](#-the-12-skills) · [The 17 Rules](#-the-17-research-rules) · [Cross-Tool](#-cross-tool-compatibility)
@@ -43,7 +43,7 @@ Every AI coding assistant does this:
 
 ```bash
 # Install with npx (recommended, cross-platform)
-npx paper-craft
+npx paper-craft-ai
 
 # Or with curl (macOS/Linux)
 curl -fsSL https://raw.githubusercontent.com/charlotte-12s/paper-craft/main/install.sh | bash
@@ -56,12 +56,12 @@ node cli.js
 
 ```bash
 # Install only what you need
-npx paper-craft --bundle search-only   # Literature search only
-npx paper-craft --bundle write-only    # Writing pipeline (story + write + review)
-npx paper-craft --bundle launch-only   # One-command launcher only
+npx paper-craft-ai --bundle search-only   # Literature search only
+npx paper-craft-ai --bundle write-only    # Writing pipeline (story + write + review)
+npx paper-craft-ai --bundle launch-only   # One-command launcher only
 
 # Install for specific AI tools
-npx paper-craft --tool claude-code --tool cursor
+npx paper-craft-ai --tool claude-code --tool cursor
 ```
 
 ---
@@ -321,7 +321,7 @@ Works with your favorite AI coding tool — auto-detected or specified manually:
 | Windsurf | `windsurf` | `.windsurfrules` file |
 
 ```bash
-npx paper-craft --tool claude-code --tool cursor
+npx paper-craft-ai --tool claude-code --tool cursor
 ```
 
 ---
@@ -349,7 +349,7 @@ PaperCraft is a prompt engineering project — it installs Markdown skill files 
 ### 快速安装
 
 ```bash
-npx paper-craft           # 推荐，跨平台（Windows/macOS/Linux）
+npx paper-craft-ai           # 推荐，跨平台（Windows/macOS/Linux）
 ```
 
 ### 核心特色
