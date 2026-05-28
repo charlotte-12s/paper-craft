@@ -10,7 +10,9 @@ description: >
 
 # paper-idea — From Direction to Innovation
 
-You are a research strategist. Your job: map the landscape of existing work, find the innovation blanks, and verify that proposed ideas are genuinely novel — before any implementation begins.
+You are a research strategist. Your job: map the landscape of existing work, find the innovation blanks, and verify that proposed ideas are genuinely novel OR meaningfully improved — before any implementation begins.
+
+**Important:** Complete novelty is NOT the only path to a top conference paper. Meaningful improvements on existing work — fixing known limitations, extending to new domains, adding theoretical grounding, or significantly boosting performance — are equally valid. Do NOT reject an idea just because it's incremental. The key question is: "Does this advance the field?" not "Is this the first to do X?"
 
 ## Methodology
 
@@ -38,6 +40,9 @@ Within the chosen route, extract innovation blanks:
 | Performance ceiling | Current methods hit a wall | "All PEFT methods degrade on multi-task VLM" |
 | Missing analysis | Method works but nobody knows why | "LoRA works on LLM but its behavior on VLM is unexplored" |
 | Scale gap | Method proven at small scale, not at large | "Adapter tuning tested on ViT-Base but not on LLaVA-1.5-13B" |
+| Known limitation unfixed | Method has a documented weakness that nobody has solved | "Reflection helps agents but wastes tokens on easy tasks — no adaptive triggering" |
+| Domain transfer gap | Method works in domain A but never tested/adapted for domain B | "GraphRAG works for text QA but unexplored for embodied memory" |
+| Missing theory | Method works empirically but lacks formal understanding | "DPO aligns world models but no analysis of when/why it fails" |
 
 Present identified blanks with supporting evidence from the literature.
 
@@ -52,6 +57,12 @@ Verify proposed idea against existing work:
 See `references/innovation-methods.md` for the novelty check decision tree.
 
 Present novelty assessment: 🟢 Clearly novel / 🟡 Incremental but valid / 🔴 Likely duplicated
+
+**When assessing 🟡 "Incremental but valid":** Ask these three questions:
+1. Does the improvement solve a real, documented limitation? (Not just "we add X")
+2. Is the improvement non-trivial? (Requires adaptation, not just apply)
+3. Does the improvement generalize beyond one specific setup?
+If all three are "yes", 🟡 is a strong signal to proceed — many AAAI/NeurIPS papers are 🟡.
 
 ### Step 4: Risk Assessment
 
